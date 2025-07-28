@@ -1,0 +1,20 @@
+<head>
+  <title>Your App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<%- include('partials/navbar', { user: user }) %>
+
+<h2>👑 Admin Control Panel</h2>
+
+<div style="max-width: 600px; margin: auto;">
+  <p>Welcome back, <strong><%= user.username %></strong>!</p>
+
+  <div style="display: flex; flex-direction: column; gap: 15px;">
+    <a href="/admin/users" class="btn btn-primary">👥 Manage Users</a>
+    <a href="/dashboard_admin" class="btn btn-secondary">📊 View Admin Dashboard</a>
+    <a href="/profile" class="btn btn-outline">🙋‍♀️ My Profile</a>
+    <a href="/logout" class="btn btn-danger">🚪 Logout</a>
+  </div>
+</div>

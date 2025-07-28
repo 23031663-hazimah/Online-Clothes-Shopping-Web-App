@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/navbar', { user: user }) %>
+
+<h2>📝 Register</h2>
+
+<form method="POST" action="/register">
+  <label>Username</label>
+  <input type="text" name="username" required>
+
+  <label>Email</label>
+  <input type="email" name="email" required>
+
+  <label>Password</label>
+  <input type="password" name="password" required>
+
+  <button type="submit">Create Account</button>
+</form>
+
+<p style="text-align: center;">Already have an account? <a href="/login">Login here</a></p>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/navbar', { user: user }) %>
+
+<h2>📊 Admin Dashboard</h2>
+
+<div style="max-width: 500px; margin: auto;">
+  <p>Welcome, <strong><%= user.username %></strong>. You are logged in as <strong><%= user.role %></strong>.</p>
+
+  <div style="display: flex; flex-direction: column; gap: 15px;">
+    <a href="/admin/users" class="btn">👥 Manage Users</a>
+    <a href="/profile" class="btn btn-outline">🙋 My Profile</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/navbar', { user: user }) %>
+
+<h2>🔐 Login</h2>
+
+<form method="POST" action="/login">
+  <label>Email</label>
+  <input type="email" name="email" required>
+
+  <label>Password</label>
+  <input type="password" name="password" required>
+
+  <button type="submit">Login</button>
+</form>
+
+<p style="text-align: center;">Don't have an account? <a href="/register">Register here</a></p>
+
+</body>
+</html>

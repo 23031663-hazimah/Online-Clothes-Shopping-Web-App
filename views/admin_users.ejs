@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Users</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/navbar', { user: user }) %>
+
+<h2>👥 Manage Users</h2>
+
+<form method="GET" action="/admin/users" style="max-width: 500px; margin: auto;">
+  <label>Filter by Role:</label>
+  <select name="role" onchange="this.form.submit()">
+    <option value="">All</option>
+    <option value="user" <%= filter === 'user' ? 'selected' : '' %>>User</option>
+    <option value="admin" <%= filter === 'admin' ? 'selected' : '' %>>Admin</option>
+  </select>
+</form>
+
+<br>
+
+<table border="1" cellpadding="10" cellspacing="0" style="margin: auto; width: 90%; border-collapse: collapse;">
+  <tr style="background-color: #ececec;">
+    <th>ID</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Change Role</th>
+    <th>Action</th>
+  </tr>
+
+  <% users.forEach(u => { %>
+    <tr>
+      <td><%= u.id %></td>
+      <td><%= u.username %></td>
+      <td><%= u.email %></td>
+      <td><%= u.role %></td>
+      <td>
+        <form method="POST" action="/admin/users/role/<%= u.id %>">
+          <select name="role">
+            <option value="user" <%= u.role === 'user' ? 'selected' : '' %>>user</option>
+            <option value="admin" <%= u.role === 'admin' ? 'selected' : '' %>>admin</option>
+          </select>
+          <button type="submit" class="btn btn-outline">Update</button>
+        </form>
+      </td>
+      <td>
+        <% if (u.id !== user.id) { %>
+          <form method="POST" action="/admin/users/delete/<%= u.id %>" onsubmit="return confirm('Confirm delete?');">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        <% } else { %>
+          <em>Can't delete self</em>
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+
+<br>
+<p style="text-align: center;"><a href="/admin" class="btn btn-outline">⬅ Back to Admin Panel</a></p>
+
+</body>
+</html>
