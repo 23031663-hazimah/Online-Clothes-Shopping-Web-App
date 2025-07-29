@@ -1,67 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Manage Users</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<%- include('partials/navbar', { user: user }) %>
+  <%- include('partials/navbar', { user }) %>
 
-<h2>👥 Manage Users</h2>
+  <div class="container my-5">
+    <h2 class="text-center mb-4">👥 Manage Users</h2>
 
-<form method="GET" action="/admin/users" style="max-width: 500px; margin: auto;">
-  <label>Filter by Role:</label>
-  <select name="role" onchange="this.form.submit()">
-    <option value="">All</option>
-    <option value="user" <%= filter === 'user' ? 'selected' : '' %>>User</option>
-    <option value="admin" <%= filter === 'admin' ? 'selected' : '' %>>Admin</option>
-  </select>
-</form>
-
-<br>
-
-<table border="1" cellpadding="10" cellspacing="0" style="margin: auto; width: 90%; border-collapse: collapse;">
-  <tr style="background-color: #ececec;">
-    <th>ID</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Change Role</th>
-    <th>Action</th>
-  </tr>
-
-  <% users.forEach(u => { %>
-    <tr>
-      <td><%= u.id %></td>
-      <td><%= u.username %></td>
-      <td><%= u.email %></td>
-      <td><%= u.role %></td>
-      <td>
-        <form method="POST" action="/admin/users/role/<%= u.id %>">
-          <select name="role">
-            <option value="user" <%= u.role === 'user' ? 'selected' : '' %>>user</option>
-            <option value="admin" <%= u.role === 'admin' ? 'selected' : '' %>>admin</option>
+    <form method="GET" action="/admin/users" class="mb-4">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <label class="form-label">Filter by Role:</label>
+          <select name="role" class="form-select" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="user" <%= filter === 'user' ? 'selected' : '' %>>User</option>
+            <option value="admin" <%= filter === 'admin' ? 'selected' : '' %>>Admin</option>
           </select>
-          <button type="submit" class="btn btn-outline">Update</button>
-        </form>
-      </td>
-      <td>
-        <% if (u.id !== user.id) { %>
-          <form method="POST" action="/admin/users/delete/<%= u.id %>" onsubmit="return confirm('Confirm delete?');">
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-        <% } else { %>
-          <em>Can't delete self</em>
-        <% } %>
-      </td>
-    </tr>
-  <% }) %>
-</table>
+        </div>
+      </div>
+    </form>
 
-<br>
-<p style="text-align: center;"><a href="/admin" class="btn btn-outline">⬅ Back to Admin Panel</a></p>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Change Role</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(u => { %>
+            <tr>
+              <td><%= u.id %></td>
+              <td><%= u.username %></td>
+              <td><%= u.email %></td>
+              <td><%= u.role %></td>
+              <td>
+                <form method="POST" action="/admin/users/role/<%= u.id %>">
+                  <select name="role" class="form-select mb-2">
+                    <option value="user" <%= u.role === 'user' ? 'selected' : '' %>>User</option>
+                    <option value="admin" <%= u.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                  </select>
+                  <button type="submit" class="btn btn-outline-primary btn-sm">Update</button>
+                </form>
+              </td>
+              <td>
+                <% if (u.id !== user.id) { %>
+                  <form method="POST" action="/admin/users/delete/<%= u.id %>" onsubmit="return confirm('Confirm delete?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                <% } else { %>
+                  <em>Can't delete self</em>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
 
+    <div class="text-center mt-4">
+      <a href="/admin" class="btn btn-outline-secondary">⬅ Back to Admin Panel</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

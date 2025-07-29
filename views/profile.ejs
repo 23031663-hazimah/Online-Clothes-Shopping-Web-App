@@ -1,31 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>My Profile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<%- include('partials/navbar', { user: user }) %>
+<%- include('partials/navbar', { user }) %>
 
-<h2>🙋 My Profile</h2>
+<div class="container my-5">
+  <h2 class="text-center">🙋 My Profile</h2>
 
-<% if (message) { %>
-  <p style="text-align:center; color:<%= message.includes('✅') ? 'green' : 'red' %>"><%= message %></p>
-<% } %>
+  <% if (message) { %>
+    <div class="alert <%= message.includes('✅') ? 'alert-success' : 'alert-danger' %> text-center">
+      <%= message %>
+    </div>
+  <% } %>
 
-<form method="POST" action="/profile">
-  <label>Username</label>
-  <input type="text" name="username" value="<%= user.username %>" required>
+  <form method="POST" action="/profile" class="mb-4">
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input type="text" name="username" value="<%= user.username %>" required class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" value="<%= user.email %>" required class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Update Account</button>
+  </form>
 
-  <label>Email</label>
-  <input type="email" name="email" value="<%= user.email %>" required>
+  <form method="POST" action="/profile">
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input type="text" name="full_name" value="<%= profile.full_name || '' %>" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Phone</label>
+      <input type="text" name="phone" value="<%= profile.phone || '' %>" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Address</label>
+      <textarea name="address" class="form-control"><%= profile.address || '' %></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date of Birth</label>
+      <input type="date" name="date_of_birth" value="<%= profile.date_of_birth || '' %>" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success w-100">Save Profile</button>
+  </form>
 
-  <button type="submit">Update Profile</button>
-</form>
+  <div class="text-center mt-3">
+    <a href="/profile/password" class="btn btn-outline-secondary">Change Password</a>
+  </div>
+</div>
 
-<p style="text-align: center;"><a href="/profile/password">Change Password</a></p>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

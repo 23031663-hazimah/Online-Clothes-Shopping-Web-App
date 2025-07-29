@@ -2,104 +2,12 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: #f4f1ee;
   color: #3e3e3e;
-  margin: 0;
-  padding: 0;
-}
-
-nav {
-  background: #d7ccc8;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  font-weight: 500;
-  border-bottom: 2px solid #bcaea7;
-}
-
-nav a {
-  text-decoration: none;
-  color: #3e3e3e;
-  transition: 0.3s ease;
-  font-size: 16px;
-}
-
-nav a:hover {
-  color: #6d4c41;
-  text-decoration: underline;
 }
 
 h2 {
   color: #5d4037;
   text-align: center;
   margin-top: 30px;
-}
-
-form {
-  background: #fff;
-  padding: 25px;
-  margin: 30px auto;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  max-width: 460px;
-}
-
-input, select, button {
-  padding: 12px;
-  width: 100%;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 15px;
-}
-
-button {
-  background: #8d6e63;
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-  border-radius: 8px;
-}
-
-button:hover {
-  background: #6d4c41;
-}
-
-.btn {
-  display: inline-block;
-  text-align: center;
-  background: #8d6e63;
-  color: white;
-  padding: 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s ease;
-}
-
-.btn:hover {
-  background: #6d4c41;
-  color: #eee8e4;
-}
-
-.btn-outline {
-  background: #fff;
-  color: #8d6e63;
-  border: 2px solid #8d6e63;
-}
-
-.btn-outline:hover {
-  background: #8d6e63;
-  color: white;
-}
-
-.btn-danger {
-  background: #b71c1c;
-}
-
-.btn-danger:hover {
-  background: #8e0000;
 }
 
 a {
@@ -110,4 +18,53 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: #5d4037;
+}
+
+/* Buttons */
+.btn-custom {
+  background-color: #8d6e63;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #6d4c41;
+  color: #eee8e4;
+}
+
+.btn-outline-custom {
+  border: 2px solid #8d6e63;
+  color: #8d6e63;
+  background-color: #fff;
+}
+
+.btn-outline-custom:hover {
+  background-color: #8d6e63;
+  color: white;
+}
+
+.btn-danger-custom {
+  background-color: #b71c1c;
+  color: white;
+}
+
+.btn-danger-custom:hover {
+  background-color: #8e0000;
+}
+
+/* Card / Form Style */
+.custom-card,
+form {
+  background: #fff;
+  padding: 25px;
+  margin: 30px auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  max-width: 460px;
+}
+
+/* Inputs */
+input, select, textarea {
+  border-radius: 10px !important;
 }
