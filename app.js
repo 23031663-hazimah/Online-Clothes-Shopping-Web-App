@@ -93,14 +93,13 @@ app.get('/', (req, res) => {
   res.render('home', { user: req.session.user });
 });
 // Login Page
-app.get('/login', (req, res) => res.render('login', { error: null }));
+app.get('/login', (req, res) => res.render('login', { error: null, user: null, message: null }));
 
 // Login Logic
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
-    if (err || results.length === 0) return res.render('login', { error: 'User not found' });
-
+    if (err || results.length === 0) return res.render('login', { error: 'User not found', user: null, message: null });
     const user = results[0];
     const match = await bcrypt.compare(password, user.password);
 
@@ -108,7 +107,7 @@ app.post('/login', (req, res) => {
       req.session.user = user;
       return res.redirect('/profile');
     } else {
-      res.render('login', { error: 'Incorrect password' });
+      res.render('login', { error: 'Incorrect password', user: null, message: null });
     }
   });
 });
@@ -116,6 +115,35 @@ app.post('/login', (req, res) => {
 // Logout
 app.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
+});
+
+
+// Register Page
+app.get('/register', (req, res) => {
+  res.render('register', { error: null, user: null, message: null });
+});
+
+// Register Logic
+app.post('/register', async (req, res) => {
+  const { full_name, email, password } = req.body;
+
+  // Check if email already exists
+  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+    if (err) return res.render('register', { error: 'Database error', user: null, message: null });
+
+    if (results.length > 0) {
+      return res.render('register', { error: 'Email already registered', user: null, message: null });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const sql = 'INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)';
+    db.query(sql, [full_name, email, hashedPassword], (err) => {
+      if (err) return res.render('register', { error: 'Registration failed', user: null, message: null });
+
+      req.session.message = 'Registration successful! Please log in.';
+      res.redirect('/login');
+    });
+  });
 });
 
 // ------------------- PROFILE ------------------- //
